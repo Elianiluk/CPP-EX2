@@ -8,12 +8,13 @@
    name- elian iluk
    email- elian10119@gmail.com
 */
-namespace ariel{
-class Graph{
+namespace ariel {
+    class Graph {
     private:
         int numOfEdges;
         std::vector<std::vector<int>> vec;
         int numOfVertices;
+
     public:
         Graph();
         void loadGraph(std::vector<std::vector<int>> vec1);
@@ -22,14 +23,15 @@ class Graph{
         int getEdges();
         std::vector<std::vector<int>> getGraph();
 
-        Graph operator+(Graph& g1);
-        void operator+=(Graph& g1);
-        void operator++();
-        void operator--();
-        void operator*=(int num);
-        void operator-=(Graph& g1);
-        Graph operator-(Graph& g1);
-        std::ostream& operator<<(std::ostream& os, Graph& g);
-};
+        friend Graph operator+(Graph& g1,Graph& g2);
+        friend void operator+=(Graph& g1,Graph& g2);  
+        friend void operator++(Graph& g1);
+        friend void operator--(Graph& g1);
+        friend void operator*=(Graph &g1,int num);
+        friend void operator-=(Graph& g1,Graph& g2); 
+        friend Graph operator-(Graph& g1,Graph& g2);
+        friend Graph operator*(Graph& g1,Graph& g2);
+        friend std::ostream& operator<<(std::ostream& os,Graph& g);
+    };
 }
-#endif //GRAPH_H
+#endif 
