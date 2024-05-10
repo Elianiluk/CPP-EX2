@@ -21,7 +21,15 @@ class Graph{
         int getVertices();
         int getEdges();
         std::vector<std::vector<int>> getGraph();
- 
+
+        Graph operator+(Graph& g1);
+        void operator+=(Graph& g1);
+        void operator++();
+        void operator--();
+        void operator*=(int num);
+        void operator-=(Graph& g1);
+        Graph operator-(Graph& g1);
+        std::ostream& operator<<(std::ostream& os, Graph& g);
 };
 }
 #endif //GRAPH_H

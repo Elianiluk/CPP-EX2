@@ -41,9 +41,119 @@ namespace ariel {
         return vec;
     }
     
-
     void Graph::printGraph() {
         std::cout << "Graph with " << numOfVertices << " vertices and " << numOfEdges << " edges" << std::endl;
     }
 
+    //asiignment 2
+
+    Graph operator+(Graph& g1) {
+        std::vector<std::vector<int>> vec1 = g1.getGraph();
+        std::vector<std::vector<int>> thisVec = vec;
+        std::vector<std::vector<int>> vecNew;
+        if(vec1.size() != thisVec.size()) {
+            std::cout << "Invalid graph: The graphs are not the same size." << std::endl;
+            exit(1);
+        }
+        for(unsigned long i = 0; i < vec1.size(); i++) {
+            for(unsigned long j = 0; j < vec1.size(); j++) {
+                vecNew[i][j] = vec1[i][j] + thisVec[i][j];
+            }
+        }
+        Graph g3;
+        g3.loadGraph(vecNew);
+        return g3;
+    }
+
+    void operator+=(Graph& g1) {
+        std::vector<std::vector<int>> vec1 = g1.getGraph();
+        std::vector<std::vector<int>> thisVec = getGraph();
+        std::vector<std::vector<int>> vecNew;
+        if(vec1.size() != thisVec.size()) {
+            std::cout << "Invalid graph: The graphs are not the same size." << std::endl;
+            exit(1);
+        }
+        for(unsigned long i = 0; i < vec1.size(); i++) {
+            for(unsigned long j = 0; j < vec1.size(); j++) {
+                vecNew[i][j] = thisVec[i][j] + vec1[i][j];
+            }
+        }
+        loadGraph(vecNew);
+    }
+
+    void operator++() {
+        std::vector<std::vector<int>> thisVec = getGraph();
+        for(unsigned long i = 0; i < thisVec.size(); i++) {
+            for(unsigned long j = 0; j < thisVec.size(); j++) {
+                thisVec[i][j]++;
+            }
+        }
+        loadGraph(thisVec);
+    }
+    
+
+    void operator--() {
+        std::vector<std::vector<int>> thisVec = getGraph();
+        for(unsigned long i = 0; i < thisVec.size(); i++) {
+            for(unsigned long j = 0; j < thisVec.size(); j++) {
+                thisVec[i][j]--;
+            }
+        }
+        loadGraph(thisVec);
+    }
+
+    void operator*=(int num) {
+        std::vector<std::vector<int>> thisVec = getGraph();
+        for(unsigned long i = 0; i < thisVec.size(); i++) {
+            for(unsigned long j = 0; j < thisVec.size(); j++) {
+                thisVec[i][j] *= num;
+            }
+        }
+        loadGraph(thisVec);
+    }
+
+    Graph operator-(Graph& g1) {
+        std::vector<std::vector<int>> vec1 = g1.getGraph();
+        std::vector<std::vector<int>> thisVec = getGraph();
+        std::vector<std::vector<int>> vecNew;
+        if(vec1.size() != thisVec.size()) {
+            std::cout << "Invalid graph: The graphs are not the same size." << std::endl;
+            exit(1);
+        }
+        for(unsigned long i = 0; i < vec1.size(); i++) {
+            for(unsigned long j = 0; j < vec1.size(); j++) {
+                vecNew[i][j] = thisVec[i][j] + vec1[i][j];
+            }
+        }
+        Graph g3;
+        g3.loadGraph(vecNew);
+        return g3;
+    }
+
+    void operator-=(Graph& g1) {
+        std::vector<std::vector<int>> vec1 = g1.getGraph();
+        std::vector<std::vector<int>> thisVec = getGraph();
+        std::vector<std::vector<int>> vecNew;
+        if(vec1.size() != thisVec.size()) {
+            std::cout << "Invalid graph: The graphs are not the same size." << std::endl;
+            exit(1);
+        }
+        for(unsigned long i = 0; i < vec1.size(); i++) {
+            for(unsigned long j = 0; j < vec1.size(); j++) {
+                vecNew[i][j] = thisVec[i][j] - vec1[i][j];
+            }
+        }
+        loadGraph(vecNew);
+    }
+
+    std::ostream& operator<<(std::ostream& os, Graph& g) {
+        std::vector<std::vector<int>> vec = g.getGraph();
+        for(unsigned long i = 0; i < vec.size(); i++) {
+            for(unsigned long j = 0; j < vec.size(); j++) {
+                os << vec[i][j] << " ";
+            }
+            os << std::endl;
+        }
+        return os;
+    }
 }
