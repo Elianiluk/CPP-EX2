@@ -65,6 +65,22 @@ namespace ariel {
         return g3;
     }
 
+    Graph operator+(Graph& g1){
+        return g1;
+    }
+
+    Graph operator-(Graph& g1){
+        std::vector<std::vector<int>> vec1 = g1.getGraph();
+        for(unsigned long i = 0; i < vec1.size(); i++) {
+            for(unsigned long j = 0; j < vec1.size(); j++) {
+                vec1[i][j] = -vec1[i][j];
+            }
+        }
+        Graph g3;
+        g3.loadGraph(vec1);
+        return g3;
+    }
+
 
     void operator+=(Graph& g1,Graph& g2) {
         std::vector<std::vector<int>> vec1 = g1.getGraph();
@@ -86,7 +102,19 @@ namespace ariel {
         std::vector<std::vector<int>> thisVec = g1.getGraph();
         for(unsigned long i = 0; i < thisVec.size(); i++) {
             for(unsigned long j = 0; j < thisVec.size(); j++) {
-                thisVec[i][j]++;
+                if(thisVec[i][j]!=0)
+                    thisVec[i][j]++;
+            }
+        }
+        g1.loadGraph(thisVec);
+    }
+
+    void operator++(Graph& g1,int) {
+        std::vector<std::vector<int>> thisVec = g1.getGraph();
+        for(unsigned long i = 0; i < thisVec.size(); i++) {
+            for(unsigned long j = 0; j < thisVec.size(); j++) {
+                if(thisVec[i][j]!=0)
+                    ++thisVec[i][j];
             }
         }
         g1.loadGraph(thisVec);
@@ -97,7 +125,19 @@ namespace ariel {
         std::vector<std::vector<int>> thisVec = g1.getGraph();
         for(unsigned long i = 0; i < thisVec.size(); i++) {
             for(unsigned long j = 0; j < thisVec.size(); j++) {
-                thisVec[i][j]--;
+                if(thisVec[i][j]!=0)
+                    thisVec[i][j]--;
+            }
+        }
+        g1.loadGraph(thisVec);
+    }
+
+    void operator--(Graph& g1,int) {
+        std::vector<std::vector<int>> thisVec = g1.getGraph();
+        for(unsigned long i = 0; i < thisVec.size(); i++) {
+            for(unsigned long j = 0; j < thisVec.size(); j++) {
+                if(thisVec[i][j]!=0)
+                    --thisVec[i][j];
             }
         }
         g1.loadGraph(thisVec);
@@ -177,6 +217,8 @@ namespace ariel {
                 }
             }
         }
+        for(unsigned long i=0;i<vecNew.size();i++)
+            vecNew[i][i]=0;
         Graph g3;
         g3.loadGraph(vecNew);
         return g3;
