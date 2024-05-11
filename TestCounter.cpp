@@ -2,11 +2,6 @@
 #include "doctest.h"
 using namespace doctest;
 
-/*id-214787483
-   name- elian iluk
-   email- elian10119@gmail.com
-*/
-
 const int MIN_TESTS = 20;
 
 int return_code = -1;
@@ -32,7 +27,7 @@ struct ReporterCounter : public ConsoleReporter
 
 REGISTER_REPORTER("counter", 1, ReporterCounter);
 
-int main1(int argc, char **argv)
+int main(int argc, char **argv)
 {
     Context context;
     context.addFilter("reporters", "counter");

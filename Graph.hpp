@@ -28,9 +28,16 @@ namespace ariel {
         friend void operator++(Graph& g1);
         friend void operator--(Graph& g1);
         friend void operator*=(Graph &g1,int num);
+        friend void operator/=(Graph &g1,int num); 
         friend void operator-=(Graph& g1,Graph& g2); 
         friend Graph operator-(Graph& g1,Graph& g2);
         friend Graph operator*(Graph& g1,Graph& g2);
+        friend bool operator>(Graph& g1,Graph& g2);
+        friend bool operator<(Graph& g1,Graph& g2);
+        friend bool operator==(Graph& g1,Graph& g2);
+        friend bool operator!=(Graph& g1,Graph& g2);
+        friend bool operator>=(Graph& g1,Graph& g2);
+        friend bool operator<=(Graph& g1,Graph& g2);
         friend std::ostream& operator<<(std::ostream& os,Graph& g);
     };
 }
