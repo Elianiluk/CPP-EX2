@@ -115,6 +115,10 @@ namespace ariel {
     }
 
     void operator/=(Graph &g1,int num) {
+        if(num == 0) {
+            std::cout << "Invalid operation: Division by zero." << std::endl;
+            exit(1);
+        }
         std::vector<std::vector<int>> thisVec = g1.getGraph();
         for(unsigned long i = 0; i < thisVec.size(); i++) {
             for(unsigned long j = 0; j < thisVec.size(); j++) {
