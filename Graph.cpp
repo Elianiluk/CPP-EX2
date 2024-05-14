@@ -41,8 +41,19 @@ namespace ariel {
         return vec;
     }
     
-    void Graph::printGraph() {
-        std::cout << "Graph with " << numOfVertices << " vertices and " << numOfEdges << " edges" << std::endl;
+    std::string Graph::printGraph(){
+        std::string str;
+        for(unsigned long i = 0; i < vec.size(); i++) {
+            str+="[";
+            for(unsigned long j = 0; j < vec.size(); j++) {
+                str += std::to_string(vec[i][j]);
+                str += " ";
+            }
+            str.pop_back();
+            str+="]";
+            str += "\n";
+        }
+        return str;
     }
 
     //asiignment 2
@@ -240,6 +251,7 @@ namespace ariel {
         if(vec1.size()<vec2.size() || vec1[0].size()<vec2[0].size())
             return false;
         int count=0;
+        bool flag=true;
         for(unsigned long i=0;i<smallY;i++)
             for(unsigned long j=0;j<smallX;j++)
             {
@@ -248,10 +260,13 @@ namespace ariel {
                 else if(vec2[i][j]==vec1[i][j])
                     count++;
                 else if(vec2[i][j]!=vec1[i][j])
-                    return false;
+                {
+                    flag=false;
+                    break;
+                }
                 
             }
-        if(count!=vec1.size()*vec1.size())
+        if(count!=vec1.size()*vec1.size() && flag)
             return true;
 
         if(right.getEdges() > left.getEdges())//if the number of edges in the right graph is bigger than the left graph,option 2
@@ -311,6 +326,7 @@ namespace ariel {
             return false;
 
         int count = 0;
+        bool flag = true;
         for(unsigned long i = 0; i < smallY; i++) {
             for(unsigned long j = 0; j < smallX; j++) {
                 if(vec2[i][j] != 0 && vec1[i][j] == 0)
@@ -318,10 +334,13 @@ namespace ariel {
                 else if(vec1[i][j] == vec2[i][j])
                     count++;
                 else if(vec1[i][j] != vec2[i][j])
-                    return false;
+                {
+                    flag = false;
+                    break;
+                }
             }
         }
-        if(count != vec1.size() * vec1.size())
+        if(count != vec1.size() * vec1.size() && flag)
             return true;
 
         if(left.getEdges() < right.getEdges())  // Number of edges in left graph is less than right graph

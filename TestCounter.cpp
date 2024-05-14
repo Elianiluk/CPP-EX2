@@ -23,7 +23,7 @@ struct ReporterCounter : public ConsoleReporter
             return_code = 1;
         }
     }
-};
+}; 
 
 REGISTER_REPORTER("counter", 1, ReporterCounter);
 

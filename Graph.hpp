@@ -18,7 +18,7 @@ namespace ariel {
     public:
         Graph();
         void loadGraph(std::vector<std::vector<int>> vec1);
-        void printGraph();
+        std::string printGraph();
         int getVertices();
         int getEdges();
         std::vector<std::vector<int>> getGraph();
