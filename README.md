@@ -1,9 +1,9 @@
 
 # Assignment 2- operators overloading using Graph class
 
- # Elian iluk
- # id- 214787483
- # email- elian10119@gmail.com
+ - Elian iluk
+ - id- 214787483
+ - email- elian10119@gmail.com
 
 ## Overview
 
