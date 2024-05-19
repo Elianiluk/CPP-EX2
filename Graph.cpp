@@ -60,15 +60,24 @@ namespace ariel {
 
     Graph operator+(Graph& g1,Graph& g2) {
         std::vector<std::vector<int>> vec1 = g1.getGraph();
-        std::vector<std::vector<int>> thisVec = g2.getGraph();
+        std::vector<std::vector<int>> vec2 = g2.getGraph();
         std::vector<std::vector<int>> vecNew(vec1.size(), std::vector<int>(vec1[0].size()));
-        if(vec1.size() != thisVec.size() || vec1[0].size() != thisVec[0].size()) {
+        if(vec1.size() != vec2.size() || vec1[0].size() != vec2[0].size()) {
             std::cout << "Invalid graph: The graphs are not the same size." << std::endl;
             exit(1);
         }
-        for(unsigned long i = 0; i < vec1.size(); i++) {
-            for(unsigned long j = 0; j < vec1.size(); j++) {
-                vecNew[i][j] = vec1[i][j] + thisVec[i][j];
+        unsigned long smallX=0,smallY=0;
+        if(vec1.size()>=vec2.size())
+            smallY=vec2.size();
+        else
+            smallY=vec1.size();
+        if(vec1[0].size()>=vec2[0].size())
+            smallX=vec2[0].size();
+        else
+            smallX=vec1[0].size();
+        for(unsigned long i = 0; i < smallX; i++) {
+            for(unsigned long j = 0; j < smallY; j++) {
+                vecNew[i][j] = vec1[i][j] + vec2[i][j];
             }
         }
         Graph g3;
@@ -76,11 +85,11 @@ namespace ariel {
         return g3;
     }
 
-    Graph operator+(Graph& g1){
+    Graph operator+(Graph& g1){//plus unary
         return g1;
     }
 
-    Graph operator-(Graph& g1){
+    Graph operator-(Graph& g1){//minus unary
         std::vector<std::vector<int>> vec1 = g1.getGraph();
         for(unsigned long i = 0; i < vec1.size(); i++) {
             for(unsigned long j = 0; j < vec1.size(); j++) {
@@ -96,13 +105,22 @@ namespace ariel {
     void operator+=(Graph& g1,Graph& g2) {
         std::vector<std::vector<int>> vec1 = g1.getGraph();
         std::vector<std::vector<int>> vec2 = g2.getGraph();
-        //std::vector<std::vector<int>> vecNew;
+        std::vector<std::vector<int>> vecNew;
         if(vec1.size() != vec2.size() || vec1[0].size() != vec2[0].size()) {
             std::cout << "Invalid graph: The graphs are not the same size." << std::endl;
             exit(1);
         }
-        for(unsigned long i = 0; i < vec1.size(); i++) {
-            for(unsigned long j = 0; j < vec1.size(); j++) {
+        unsigned long smallX=0,smallY=0;
+        if(vec1.size()>=vec2.size())
+            smallY=vec2.size();
+        else
+            smallY=vec1.size();
+        if(vec1[0].size()>=vec2[0].size())
+            smallX=vec2[0].size();
+        else
+            smallX=vec1[0].size();
+        for(unsigned long i = 0; i < smallX; i++) {
+            for(unsigned long j = 0; j < smallY; j++) {
                 vec1[i][j] = vec2[i][j] + vec1[i][j];
             }
         }
@@ -181,15 +199,50 @@ namespace ariel {
 
     Graph operator-(Graph& g1,Graph& g2) {
         std::vector<std::vector<int>> vec1 = g1.getGraph();
-        std::vector<std::vector<int>> thisVec = g2.getGraph();
-        std::vector<std::vector<int>> vecNew(vec1.size(), std::vector<int>(vec1[0].size()));
-        if(vec1.size() != thisVec.size() || vec1[0].size() != thisVec[0].size()){
+        std::vector<std::vector<int>> vec2 = g2.getGraph();
+        std::vector<std::vector<int>> vecNew=vec1;
+        // unsigned long big=0;
+        // if(vec1.size()>=vec2.size())
+        // {
+        //     big=vec1.size();
+        //     std::vector<std::vector<int>> vecNew=vec1;
+        //     for (unsigned long i = 0; i < vec1.size(); i++)
+        //     {
+        //         for (unsigned long j = 0; j < vec1[0].size(); j++)
+        //         {
+        //                 vecNew[i][j]=0;
+        //         }
+        //     }
+        // }
+        // else
+        // {
+        //     big=vec2.size();
+        //     std::vector<std::vector<int>> vecNew=vec2;
+        //     for (unsigned long i = 0; i < vec2.size(); i++)
+        //     {
+        //         for (unsigned long j = 0; j < vec2[0].size(); j++)
+        //         {
+        //                 vecNew[i][j]=0;
+        //         }
+        //     }
+        // }
+
+        if(vec1.size() != vec2.size() || vec1[0].size() != vec2[0].size()){
             std::cout << "Invalid graph: The graphs are not the same size." << std::endl;
             exit(1);
         }
-        for(unsigned long i = 0; i < vec1.size(); i++) {
-            for(unsigned long j = 0; j < vec1.size(); j++) {
-                vecNew[i][j] = vec1[i][j] - thisVec[i][j];
+        unsigned long smallX=0,smallY=0;
+        if(vec1.size()>=vec2.size())
+            smallY=vec2.size();
+        else
+            smallY=vec1.size();
+        if(vec1[0].size()>=vec2[0].size())
+            smallX=vec2[0].size();
+        else
+            smallX=vec1[0].size();
+        for(unsigned long i = 0; i < smallX; i++) {
+            for(unsigned long j = 0; j < smallY; j++) {
+                vecNew[i][j] = vec1[i][j] - vec2[i][j];
             }
         }
         Graph g3;
@@ -205,8 +258,17 @@ namespace ariel {
             std::cout << "Invalid graph: The graphs are not the same size." << std::endl;
             exit(1);
         }
-        for(unsigned long i = 0; i < vec1.size(); i++) {
-            for(unsigned long j = 0; j < vec1.size(); j++) {
+        unsigned long smallX=0,smallY=0;
+        if(vec1.size()>=vec2.size())
+            smallY=vec2.size();
+        else
+            smallY=vec1.size();
+        if(vec1[0].size()>=vec2[0].size())
+            smallX=vec2[0].size();
+        else
+            smallX=vec1[0].size();
+        for(unsigned long i = 0; i < smallX; i++) {
+            for(unsigned long j = 0; j < smallY; j++) {
                 vec1[i][j] = vec1[i][j] - vec2[i][j];
             }
         }
@@ -340,7 +402,7 @@ namespace ariel {
                 }
             }
         }
-        if(count != vec1.size() * vec1.size() && flag)
+        if(count != smallX*smallY && flag)
             return true;
 
         if(left.getEdges() < right.getEdges())  // Number of edges in left graph is less than right graph

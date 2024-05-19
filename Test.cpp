@@ -2,8 +2,9 @@
 #include "Algorithms.hpp"
 #include "Graph.hpp"
 
-using namespace std;
 
+using namespace std;
+#include <sstream>
 TEST_CASE("Test graph addition")
 {
     ariel::Graph g1;
@@ -54,6 +55,17 @@ TEST_CASE("Test graph dedction")
     CHECK(g4.printGraph() == "[0 -1 -1]\n[-1 0 -2]\n[-1 -2 0]\n");
     ariel::Graph g5=g4-g2;
     CHECK(g5.printGraph() == "[0 -2 -2]\n[-2 0 -4]\n[-2 -4 0]\n");
+    // ariel::Graph g6;
+    // vector<vector<int>> graph2 = {
+    //     {0, 1, 0, 0, 1},
+    //     {1, 0, 1, 0, 0},
+    //     {0, 1, 0, 1, 0},
+    //     {0, 0, 1, 0, 1},
+    //     {1, 0, 0, 1, 0}};
+    // g6.loadGraph(graph2);
+    // ariel::Graph g7=g6-g1;
+    // CHECK(g7.printGraph() == "[0 0 0 0 1]\n[0 0 0 0 0]\n[0 0 0 1 0]\n[0 0 1 0 1]\n[1 0 0 1 0]\n");
+    //std::cout<<g7.printGraph();
 }
 
 TEST_CASE("Test graph multiplication by number")
@@ -74,6 +86,8 @@ TEST_CASE("Test graph multiplication by number")
     CHECK(g1.printGraph() == "[0 2 0]\n[2 0 2]\n[0 2 0]\n");
     g2 *= 3;
     CHECK(g2.printGraph() == "[0 3 3]\n[3 0 6]\n[3 6 0]\n");
+    g1 *= 0;
+    CHECK(g1.printGraph() == "[0 0 0]\n[0 0 0]\n[0 0 0]\n");
 }
 
 TEST_CASE("Test graph division by number")
@@ -97,6 +111,8 @@ TEST_CASE("Test graph division by number")
     g2.loadGraph(weightedGraph);
     g2 /= 2;
     CHECK(g2.printGraph() == "[0 0 0]\n[0 0 1]\n[0 1 0]\n");
+    // g1/=0;
+    // CHECK(g1.printGraph() == "[0 0 0]\n[0 0 0]\n[0 0 0]\n");
 }
 
 TEST_CASE("Test graph addition and store it in g1")
@@ -203,6 +219,21 @@ TEST_CASE("Test graph comparison")
     CHECK((g1 != g2) == true);
     CHECK((g1 >= g2) == false);
     CHECK((g1 <= g2) == true);
+
+    ariel::Graph g3;
+    vector<vector<int>> graph2 = {
+        {0, 1, 0, 0, 1},
+        {1, 0, 1, 0, 0},
+        {0, 1, 0, 1, 0},
+        {0, 0, 1, 0, 1},
+        {1, 0, 0, 1, 0}};
+    g3.loadGraph(graph2);
+    CHECK((g1 > g3) == false);
+    CHECK((g1 < g3) == true);
+    CHECK((g1 == g3) == false);
+    CHECK((g1 != g3) == true);
+    CHECK((g1 >= g3) == false);
+    CHECK((g1 <= g3) == true);
 }
 
 TEST_CASE("Test graph increment and decrement")
@@ -223,6 +254,10 @@ TEST_CASE("Test graph increment and decrement")
     CHECK(g1.printGraph() == "[0 2 0]\n[2 0 2]\n[0 2 0]\n");
     --g2;
     CHECK(g2.printGraph() == "[0 0 0]\n[0 0 1]\n[0 1 0]\n");
+    g1++;
+    CHECK(g1.printGraph() == "[0 3 0]\n[3 0 3]\n[0 3 0]\n");
+    g2--;
+    CHECK(g2.printGraph() == "[0 0 0]\n[0 0 0]\n[0 0 0]\n");
 }
 
 
@@ -248,6 +283,7 @@ TEST_CASE("Test graph multiplication")
     CHECK(g4.printGraph() == "[0 0 2]\n[1 0 1]\n[1 0 0]\n");
 }
 
+
 TEST_CASE("print graph")
 {
     ariel::Graph g1;
@@ -256,8 +292,9 @@ TEST_CASE("print graph")
         {1, 0, 1},
         {0, 1, 0}};
     g1.loadGraph(graph);
-    CHECK(g1.printGraph() == "[0 1 0]\n[1 0 1]\n[0 1 0]\n");
-    std::cout<<g1;
+    std::stringstream ss;
+    ss << g1;
+    CHECK(ss.str() == "0 1 0 \n1 0 1 \n0 1 0 \n");
 }
 
 TEST_CASE("Invalid operations")
