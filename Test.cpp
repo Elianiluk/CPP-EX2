@@ -303,6 +303,112 @@ TEST_CASE("print graph")
     CHECK(ss.str() == "0 1 0 \n1 0 1 \n0 1 0 \n");
 }
 
+TEST_CASE("algorighms check- isConnected")
+{
+    ariel::Graph g1;
+    vector<vector<int>> graph1 = {
+        {0, 1, 0},
+        {1, 0, 1},
+        {0, 1, 0}};
+    g1.loadGraph(graph1);
+    CHECK(ariel::Algorithms::isConnected(g1) == true);
+
+    ariel::Graph g2;
+    vector<vector<int>> graph2 = {
+        {0, 0, 0},
+        {0, 0, 1},
+        {0, 1, 0}};
+    g2.loadGraph(graph2);
+    g1-=g2;
+    CHECK(ariel::Algorithms::isConnected(g1) == false);
+    
+}
+
+TEST_CASE("algorighms check- shortestPath")
+{
+    ariel::Graph g1;
+    vector<vector<int>> graph1 = {
+        {0, 1, 0},
+        {1, 0, 1},
+        {0, 1, 0}};
+    g1.loadGraph(graph1);
+    CHECK(ariel::Algorithms::shortestPath(g1, 0, 2) == "0->1->2");
+
+    ariel::Graph g2;
+    vector<vector<int>> graph2 = {
+        {0, 0, 0},
+        {0, 0, 1},
+        {0, 1, 0}};
+    g2.loadGraph(graph2);
+    g1-=g2;
+    CHECK(ariel::Algorithms::shortestPath(g1, 0, 2) == "-1");
+    
+}
+
+TEST_CASE("algorighms check- isContainsCycle")
+{
+    ariel::Graph g1;
+    vector<vector<int>> graph1 = {
+        {0, 1, 0},
+        {1, 0, 1},
+        {0, 1, 0}};
+    g1.loadGraph(graph1);
+    CHECK(ariel::Algorithms::isContainsCycle(g1) == false);
+
+    ariel::Graph g2;
+    vector<vector<int>> graph2 = {
+        {0, 0, 1},
+        {0, 0, 0},
+        {1, 0, 0}};
+    g2.loadGraph(graph2);
+    g1+=g2;
+    CHECK(ariel::Algorithms::isContainsCycle(g1) == true);
+
+}
+
+TEST_CASE("algorighms check- negativeCycle")
+{
+    ariel::Graph g1;
+    vector<vector<int>> graph1 = {
+        {0, 1, 0},
+        {1, 0, 1},
+        {0, 1, 0}};
+    g1.loadGraph(graph1);
+    CHECK(ariel::Algorithms::negativeCycle(g1)== "No negative cycle detected.");
+
+    ariel::Graph g2;
+    vector<vector<int>> graph2 = {
+        {0, 0, -10},
+        {0, 0, 0},
+        {-10, 0, 0}};
+    g2.loadGraph(graph2);
+    g1+=g2;
+    CHECK(ariel::Algorithms::negativeCycle(g1)== "Negative cycle detected.");
+
+}
+
+TEST_CASE("algorighms check- isBipartite")
+{
+    ariel::Graph g1;
+    vector<vector<int>> graph1 = {
+        {0, 1, 0},
+        {1, 0, 1},
+        {0, 1, 0}};
+    g1.loadGraph(graph1);
+    CHECK(ariel::Algorithms::isBipartite(g1) == "The graph is bipartite: A={0, 2}, B={1}");
+
+    ariel::Graph g2;
+    vector<vector<int>> graph2 = {
+        {0, 0, 1},
+        {0, 0, 0},
+        {1, 0, 0}};
+    g2.loadGraph(graph2);
+    g1+=g2;
+    CHECK(ariel::Algorithms::isBipartite(g1) == "0");
+
+}
+
+
 TEST_CASE("Invalid operations")
 {
     ariel::Graph g1;
